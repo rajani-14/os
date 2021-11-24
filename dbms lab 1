@@ -1,0 +1,66 @@
+#create database salesman
+#use salesman;
+
+#create table salesman(salesman_id int(40),name varchar(20),city varchar(20),commission varchar(20),primary key(salesman_id));
+
+#create table customer(customer_id int(4),cust_name varchar(20),city varchar(20),grade int(3),salesman_id int(4),primary key(CUSTOMER_ID),foreign key(salesman_id) REFERENCES SALESMAN(SALESMAN_ID) ON DELETE SET NULL);
+
+#create table orders(ord_no int(5),purchase_amt decimal(10,2),ord_date date,customer_id int,salesman_id int,primary key(ord_no),foreign key(customer_id) references customer(customer_id) ON delete CASCADE);
+
+#desc SALESMAN;
+
+#desc CUSTOMER;
+
+#desc ORDERS;
+
+#insert into SALESMAN VALUES(1000,'JHON','BANGLORE','25%');
+#insert into SALESMAN VALUES(2000,'RAVI','BANGLORE','20%');
+#insert into SALESMAN VALUES(3000,'KUMAR','MYSORE','15%');
+#insert into SALESMAN VALUES(4000,'SMITH','DELHI','30%');
+#insert into SALESMAN VALUES(5000,'HARSHA','HYDERABAD','15%');
+
+
+#insert into CUSTOMER VALUES(10,'PREETHI','BANGLORE',100,1000);
+#insert into CUSTOMER VALUES(11,'VIVEK','MANGLORE',300,1000);
+#insert into CUSTOMER VALUES(12,'BHASKAR','CHENNAI',400,2000);
+#insert into CUSTOMER VALUES(13,'CHETHAN','BANGLORE',200,2000);
+#insert into CUSTOMER VALUES(14,'MAMATHA','BANGLORE',400,3000);
+
+
+#insert into ORDERS VALUES(50,5000,'2017-05-04',10,1000);
+#insert into ORDERS VALUES(51,450,'2017-01-20',10,2000);
+#insert into ORDERS VALUES(52,1000,'2017-02-24',13,2000);
+#insert into ORDERS VALUES(53,3500,'2017-04-13',14,3000);
+#insert into ORDERS VALUES(54,550,'2017-03-09',12,2000);
+
+#select * FROM SALESMAN;
+
+#select * FROM CUSTOMER;
+
+#select * FROM ORDERS;
+
+#select grade,count(distinct CUSTOMER_ID) FROM CUSTOMER GROUP BY GRADE HAVING GRADE>(select AVG(GRADE) from CUSTOMER WHERE CITY='BANGLORE');
+
+#select salesman_id,name from salesman a where 1<(select count(*) from customer where salesman_id=a.salesman_id);
+
+#select salesman.salesman_id,name,cust_name,commission from salesman,customer where salesman.city=customer.city union select salesman_id,name,'NO MATCH',commission from salesman where not city=any(select city from customer)order by 2 desc;
+
+#create view salesman_high_order as select b.ord_date,a.salesman_id,a.name from salesman a,orders b where a.salesman_id=b.salesman_id and b.purchase_amt=(select max(purchase_amt) from orders c where c.ord_date=b.ord_date);
+
+#select * from salesman_high_order;
+
+#delete from salesman where salesman_id=1000;
+
+#select * from salesman;
+
+
+
+
+
+
+
+
+
+
+
+
