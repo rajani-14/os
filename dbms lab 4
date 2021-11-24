@@ -1,0 +1,84 @@
+#create database company1;
+#use company1;
+
+#create table department(dno varchar(20),dname varchar(20),mgrstartdate date,primary key(dno));
+
+#create table employee(ssn varchar(20) primary key,fname varchar(20),lname varchar(20),address varchar(20),sex char(1),salary integer,dno varchar(20),foreign key(dno) references department (dno) on delete set null);
+
+#alter table department add mgrssn varchar(10) references employee(ssn);
+
+#create table dlocation(dloc varchar(20),dno varchar(20),foreign key(dno) references department(dno),primary key(dno,dloc));
+
+#create table project(pno integer primary key,pname varchar(20),plocation varchar(20),dno varchar(20),foreign key(dno) references department(dno));
+
+#create table works_on(hours int(4),pno integer,ssn varchar(20),foreign key(ssn) references employee(ssn),foreign key(pno) references project(pno),primary key(ssn,pno));
+
+
+
+
+#insert into DEPARTMENT values ('D01','Dept1','2015-06-01','EA01');
+#insert into DEPARTMENT values ('D02','Dept2','2017-05-02','EA02');
+#insert into DEPARTMENT values ('D03','Dept3','2016-06-01','EA03');
+#insert into DEPARTMENT values ('D04','Dept4','2015-08-01','EA04');
+#insert into DEPARTMENT values ('D05','Dept5','2017-05-02','EA05');
+
+
+#insert into EMPLOYEE (SSN, FNAME, LNAME, ADDRESS, SEX, SALARY,DNO) values('EA01','JOHN','SCOTT','BANGALORE','M', 450000,'D01');
+#insert into EMPLOYEE (SSN, FNAME, LNAME, ADDRESS, SEX, SALARY,DNO) values('EA02','JAMES','SMITH','BANGALORE','M', 500000,'D02');
+#insert into EMPLOYEE (SSN, FNAME, LNAME, ADDRESS, SEX, SALARY,DNO) values ('EA03','HEARN','BAKER','BANGALORE','M', 700000,'D03');
+#insert into EMPLOYEE (SSN, FNAME, LNAME, ADDRESS, SEX, SALARY,DNO) values('EA04','EDWARD','SCOTT','MYSORE','M', 500000,'D04');
+#insert into EMPLOYEE (SSN, FNAME, LNAME, ADDRESS, SEX, SALARY,DNO) values('EA05','PAVAN','HEGDE','MANGALORE','M', 650000,'D01');
+#insert into EMPLOYEE (SSN, FNAME, LNAME, ADDRESS, SEX, SALARY,DNO) values('EA06','GIRISH','Shetty','MYSORE','M', 450000,'D02');
+#insert into EMPLOYEE (SSN, FNAME, LNAME, ADDRESS, SEX, SALARY,DNO) values('EA07','NEHA','SN','BANGALORE','F', 800000,'D02');
+#insert into EMPLOYEE (SSN, FNAME, LNAME, ADDRESS, SEX, SALARY,DNO) values('EA08','AMULYA','K','MANGALORE','F', 350000,'D04');
+
+
+#insert into DLOCATION values ('BANGALORE', 'D01');
+#insert into DLOCATION values ('BANGALORE', 'D02');
+#insert into DLOCATION values ('MANGALORE', 'D03');
+#insert into DLOCATION values('Mysore','D04');
+
+
+
+#insert into PROJECT values (100,'IOT','BANGALORE','D01');
+#insert into PROJECT values (101,'CLOUD','BANGALORE','D02');
+#insert into PROJECT values (102,'BIGDATA','MANGALORE','D03');
+#insert into PROJECT values (103,'SENSORS','MANGALORE','D03');
+#insert into PROJECT values (104,'Machine learning','Mysore','D04');
+#insert into PROJECT values (105,'Networks','Mysore','D04');
+
+
+#insert into WORKS_ON values (4, '100','EA01');
+#insert into WORKS_ON values (6, 101,'EA01');
+#insert into WORKS_ON values (8, 102,'EA02');
+#insert into WORKS_ON values (10,100, 'EA02');
+#insert into WORKS_ON values (3, 100,'EA03');
+#insert into WORKS_ON values (4, 101,'EA04');
+#insert into WORKS_ON values (5, 102,'EA05');
+#insert into WORKS_ON values (6, 103,'EA06');
+#insert into WORKS_ON values (7, 104,'EA07');
+#insert into WORKS_ON values (5, 105,'EA08');
+
+
+
+
+
+
+
+
+
+
+#Select * from Employee where salary > 500000 order by ssn desc;
+
+
+#select count(*), p.pname from employee e,works_on w,project p where e.ssn=w.ssn and w.pno=p.pno group by pname;
+
+
+
+#select e.fname, e.lname, 1.1*e.salary as incr_sal from employee e, works_on w, project p where e.ssn=w.ssn and w.pno=p.pno and p.pname='iot';
+
+#select sum(e.salary),max(e.salary),min(e.salary),avg(salary) from employee e,department d where e.dno=d.dno and d.dname='dept2';
+
+
+
+#select d.dno,count(*) from department d,employee e where d.dno=e.dno and e.salary>600000 and d.dno in(select e1.dno from employee e1 group by e1.dno having count(*)>2) group by d.dno
