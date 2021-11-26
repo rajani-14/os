@@ -1,63 +1,132 @@
-#create database company1;
-#use company1;
+create database company;
+use company;
+drop database company;
 
-#create table department(dno varchar(20),dname varchar(20),mgrstartdate date,primary key(dno));
+CREATE TABLE DEPARTMENT
+(DNO VARCHAR (20),
+DNAME VARCHAR (20),
+MGRSTARTDATE DATE,
+Primary Key (DNO));
 
-#create table employee(ssn varchar(20) primary key,fname varchar(20),lname varchar(20),address varchar(20),sex char(1),salary integer,dno varchar(20),foreign key(dno) references department (dno) on delete set null);
+CREATE TABLE EMPLOYEE
+(SSN VARCHAR (20) PRIMARY KEY,
+FNAME VARCHAR(20),
+LNAME VARCHAR(20),
+ADDRESS VARCHAR (20),
+SEX CHAR (1),
+SALARY INTEGER,
+DNO varchar(20),
+FOREIGN KEY (DNO) REFERENCES DEPARTMENT (DNO) ON DELETE SET NULL);
 
-#alter table department add mgrssn varchar(10) references employee(ssn);
+ALTER TABLE DEPARTMENT
+ADD MGRSSN VARCHAR(10) REFERENCES EMPLOYEE (SSN);
+CREATE TABLE DLOCATION
+(DLOC VARCHAR (20),
+DNO varchar(20),
+FOREIGN KEY (DNO) REFERENCES DEPARTMENT (DNO),
+PRIMARY KEY (DNO, DLOC));
 
-#create table dlocation(dloc varchar(20),dno varchar(20),foreign key(dno) references department(dno),primary key(dno,dloc));
+CREATE TABLE PROJECT (
+PNO INTEGER PRIMARY KEY,
+PNAME VARCHAR(20),
+PLOCATION VARCHAR (20),
+DNO varchar(20),
+FOREIGN KEY (DNO) REFERENCES DEPARTMENT (DNO));
 
-#create table project(pno integer primary key,pname varchar(20),plocation varchar(20),dno varchar(20),foreign key(dno) references department(dno));
-
-#create table works_on(hours int(4),pno integer,ssn varchar(20),foreign key(ssn) references employee(ssn),foreign key(pno) references project(pno),primary key(ssn,pno));
-
-
-
-
-#insert into DEPARTMENT values ('D01','Dept1','2015-06-01','EA01');
-#insert into DEPARTMENT values ('D02','Dept2','2017-05-02','EA02');
-#insert into DEPARTMENT values ('D03','Dept3','2016-06-01','EA03');
-#insert into DEPARTMENT values ('D04','Dept4','2015-08-01','EA04');
-#insert into DEPARTMENT values ('D05','Dept5','2017-05-02','EA05');
-
-
-#insert into EMPLOYEE (SSN, FNAME, LNAME, ADDRESS, SEX, SALARY,DNO) values('EA01','JOHN','SCOTT','BANGALORE','M', 450000,'D01');
-#insert into EMPLOYEE (SSN, FNAME, LNAME, ADDRESS, SEX, SALARY,DNO) values('EA02','JAMES','SMITH','BANGALORE','M', 500000,'D02');
-#insert into EMPLOYEE (SSN, FNAME, LNAME, ADDRESS, SEX, SALARY,DNO) values ('EA03','HEARN','BAKER','BANGALORE','M', 700000,'D03');
-#insert into EMPLOYEE (SSN, FNAME, LNAME, ADDRESS, SEX, SALARY,DNO) values('EA04','EDWARD','SCOTT','MYSORE','M', 500000,'D04');
-#insert into EMPLOYEE (SSN, FNAME, LNAME, ADDRESS, SEX, SALARY,DNO) values('EA05','PAVAN','HEGDE','MANGALORE','M', 650000,'D01');
-#insert into EMPLOYEE (SSN, FNAME, LNAME, ADDRESS, SEX, SALARY,DNO) values('EA06','GIRISH','Shetty','MYSORE','M', 450000,'D02');
-#insert into EMPLOYEE (SSN, FNAME, LNAME, ADDRESS, SEX, SALARY,DNO) values('EA07','NEHA','SN','BANGALORE','F', 800000,'D02');
-#insert into EMPLOYEE (SSN, FNAME, LNAME, ADDRESS, SEX, SALARY,DNO) values('EA08','AMULYA','K','MANGALORE','F', 350000,'D04');
-
-
-#insert into DLOCATION values ('BANGALORE', 'D01');
-#insert into DLOCATION values ('BANGALORE', 'D02');
-#insert into DLOCATION values ('MANGALORE', 'D03');
-#insert into DLOCATION values('Mysore','D04');
-
-
-
-#insert into PROJECT values (100,'IOT','BANGALORE','D01');
-#insert into PROJECT values (101,'CLOUD','BANGALORE','D02');
-#insert into PROJECT values (102,'BIGDATA','MANGALORE','D03');
-#insert into PROJECT values (103,'SENSORS','MANGALORE','D03');
-#insert into PROJECT values (104,'Machine learning','Mysore','D04');
-#insert into PROJECT values (105,'Networks','Mysore','D04');
+CREATE TABLE WORKS_ON
+(HOURS INT (4),
+PNO integer,
+SSN Varchar(20),
+FOREIGN KEY (SSN) REFERENCES EMPLOYEE (SSN),
+FOREIGN KEY (PNO) REFERENCES PROJECT(PNO),
+PRIMARY KEY (SSN, PNO));
 
 
-#insert into WORKS_ON values (4, '100','EA01');
-#insert into WORKS_ON values (6, 101,'EA01');
-#insert into WORKS_ON values (8, 102,'EA02');
-#insert into WORKS_ON values (10,100, 'EA02');
-#insert into WORKS_ON values (3, 100,'EA03');
-#insert into WORKS_ON values (4, 101,'EA04');
-#insert into WORKS_ON values (5, 102,'EA05');
-#insert into WORKS_ON values (6, 103,'EA06');
-#insert into WORKS_ON values (7, 104,'EA07');
-#insert into WORKS_ON values (5, 105,'EA08');
+INSERT INTO DEPARTMENT VALUES ('D01','Dept1','2015-06-01','EA01'); 
+INSERT INTO DEPARTMENT VALUES ('D02','Dept2','2017-05-02','EA02');
+INSERT INTO DEPARTMENT VALUES ('D03','Dept3','2016-06-01','EA03'); 
+INSERT INTO DEPARTMENT VALUES ('D04','Dept4','2015-08-01','EA04');
+INSERT INTO DEPARTMENT VALUES ('D02','Dept2','2017-05-02','EA05');
+
+INSERT INTO EMPLOYEE (SSN, FNAME, LNAME, ADDRESS, SEX, SALARY,DNO) VALUES
+('EA01','JOHN','SCOTT','BANGALORE','M', 450000,'D01');
+INSERT INTO EMPLOYEE (SSN, FNAME, LNAME, ADDRESS, SEX, SALARY,DNO) VALUES
+('EA02','JAMES','SMITH','BANGALORE','M', 500000,'D02');
+INSERT INTO EMPLOYEE (SSN, FNAME, LNAME, ADDRESS, SEX, SALARY,DNO) VALUES
+('EA03','HEARN','BAKER','BANGALORE','M', 700000,'D03');
+INSERT INTO EMPLOYEE (SSN, FNAME, LNAME, ADDRESS, SEX, SALARY,DNO) VALUES
+('EA04','EDWARD','SCOTT','MYSORE','M', 500000,'D04');
+INSERT INTO EMPLOYEE (SSN, FNAME, LNAME, ADDRESS, SEX, SALARY,DNO) VALUES
+('EA05','PAVAN','HEGDE','MANGALORE','M', 650000,'D01');
+INSERT INTO EMPLOYEE (SSN, FNAME, LNAME, ADDRESS, SEX, SALARY,DNO) VALUES
+('EA06','GIRISH','Shetty','MYSORE','M', 450000,'D02');
+INSERT INTO EMPLOYEE (SSN, FNAME, LNAME, ADDRESS, SEX, SALARY,DNO) VALUES
+('EA07','NEHA','SN','BANGALORE','F', 800000,'D02');
+INSERT INTO EMPLOYEE (SSN, FNAME, LNAME, ADDRESS, SEX, SALARY,DNO) VALUES
+('EA08','AMULYA','K','MANGALORE','F', 350000,'D04');
+
+INSERT INTO DLOCATION VALUES ('BANGALORE', 'D01');
+INSERT INTO DLOCATION VALUES ('BANGALORE', 'D02');
+INSERT INTO DLOCATION VALUES ('MANGALORE', 'D03');
+INSERT INTO DLOCATION VALUES('Mysore','D04');
+
+
+INSERT INTO PROJECT VALUES (100,'IOT','BANGALORE','D01'); 
+INSERT INTO PROJECT VALUES (101,'CLOUD','BANGALORE','D02'); 
+INSERT INTO PROJECT VALUES (102,'BIGDATA','MANGALORE','D03'); 
+INSERT INTO PROJECT VALUES (103,'SENSORS','MANGALORE','D03');
+
+INSERT INTO PROJECT VALUES (104,'Machine learning','Mysore','D04'); 
+INSERT INTO PROJECT VALUES (105,'Networks','Mysore','D04');
+
+INSERT INTO WORKS_ON VALUES (4, '100','EA01');
+INSERT INTO WORKS_ON VALUES (6, 101,'EA01');
+INSERT INTO WORKS_ON VALUES (8, 102,'EA02');
+INSERT INTO WORKS_ON VALUES (10,100, 'EA02');
+INSERT INTO WORKS_ON VALUES (3, 100,'EA03');
+INSERT INTO WORKS_ON VALUES (4, 101,'EA04');
+INSERT INTO WORKS_ON VALUES (5, 102,'EA05');
+INSERT INTO WORKS_ON VALUES (6, 103,'EA06');
+INSERT INTO WORKS_ON VALUES (7, 104,'EA07');
+INSERT INTO WORKS_ON VALUES (5, 105,'EA08');
+ 
+ Query1:
+Select * from Employee where salary > 500000 order by SSN DESC;
+
+
+Query2:
+SELECT count(*), P.Pname FROM
+EMPLOYEE E, WORKS_ON W, PROJECT P
+WHERE E.SSN=W.SSN
+AND W.PNO=P.PNO
+group by Pname;
+
+
+
+Query3:
+SELECT E.FNAME, E.LNAME, 1.1*E.SALARY AS INCR_SAL FROM
+EMPLOYEE E, WORKS_ON W, PROJECT P
+WHERE E.SSN=W.SSN
+AND W.PNO=P.PNO
+AND P.PNAME='IOT';
+
+Query4:
+SELECT SUM(E.SALARY), MAX(E.SALARY), MIN(E.SALARY), AVG(E.SALARY)
+FROM EMPLOYEE E, DEPARTMENT D
+WHERE E.DNO=D.DNO
+AND D.DNAME='Dept2';
+
+
+Query5:
+
+SELECT D.DNO, COUNT(*)
+FROM DEPARTMENT D, EMPLOYEE E
+WHERE D.DNO=E.DNO
+AND E.SALARY>600000
+AND D.DNO IN (SELECT E1.DNO
+FROM EMPLOYEE E1 GROUP
+BY E1.DNO HAVING COUNT(*)>2)
+GROUP BY D.DNO
 
 
 
@@ -65,20 +134,3 @@
 
 
 
-
-
-
-#Select * from Employee where salary > 500000 order by ssn desc;
-
-
-#select count(*), p.pname from employee e,works_on w,project p where e.ssn=w.ssn and w.pno=p.pno group by pname;
-
-
-
-#select e.fname, e.lname, 1.1*e.salary as incr_sal from employee e, works_on w, project p where e.ssn=w.ssn and w.pno=p.pno and p.pname='iot';
-
-#select sum(e.salary),max(e.salary),min(e.salary),avg(salary) from employee e,department d where e.dno=d.dno and d.dname='dept2';
-
-
-
-#select d.dno,count(*) from department d,employee e where d.dno=e.dno and e.salary>600000 and d.dno in(select e1.dno from employee e1 group by e1.dno having count(*)>2) group by d.dno
