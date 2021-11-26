@@ -90,11 +90,12 @@ INSERT INTO WORKS_ON VALUES (6, 103,'EA06');
 INSERT INTO WORKS_ON VALUES (7, 104,'EA07');
 INSERT INTO WORKS_ON VALUES (5, 105,'EA08');
  
- Query1:
+ Query1:Display the employee details whose salary is greater than 5 lakh , sorting the records in descending order of SSN.
+
 Select * from Employee where salary > 500000 order by SSN DESC;
 
 
-Query2:
+Query2:Display the number of employees along with project name working on each project.
 SELECT count(*), P.Pname FROM
 EMPLOYEE E, WORKS_ON W, PROJECT P
 WHERE E.SSN=W.SSN
@@ -103,21 +104,21 @@ group by Pname;
 
 
 
-Query3:
+Query3:Show the resulting salaries if every employee working on the ‘IOT’ project is given a10 percent raise.
 SELECT E.FNAME, E.LNAME, 1.1*E.SALARY AS INCR_SAL FROM
 EMPLOYEE E, WORKS_ON W, PROJECT P
 WHERE E.SSN=W.SSN
 AND W.PNO=P.PNO
 AND P.PNAME='IOT';
 
-Query4:
+Query4:Find the sum of the salaries of all employees of the ‘Dept2’ department, as well as the maximum salary, the minimum salary, and the average salary in this department
 SELECT SUM(E.SALARY), MAX(E.SALARY), MIN(E.SALARY), AVG(E.SALARY)
 FROM EMPLOYEE E, DEPARTMENT D
 WHERE E.DNO=D.DNO
 AND D.DNAME='Dept2';
 
 
-Query5:
+Query5:For each department that has more than two employees, retrieve the department number and the number of its employees who are making more than Rs. 6,00,000.
 
 SELECT D.DNO, COUNT(*)
 FROM DEPARTMENT D, EMPLOYEE E
